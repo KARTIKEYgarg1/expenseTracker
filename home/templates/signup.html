@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block start %}
+<form id="form" method="POST">
+    {% csrf_token %}
+    <div class="form-control">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="text" placeholder="Enter username..." required/>
+    </div>
+    <div class="form-control">
+      <label for="Email">Email</label>
+      <input type="email" name="email" id="text" placeholder="Enter Email..." required/>
+    </div>
+    <div class="form-control">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="text" placeholder="Enter password..." required/>
+    </div>
+    <div class="form-control">
+        <label for="income">Income</label>
+        <input type="text" name="income" id="text" placeholder="Enter income for this user..." required/>
+    </div>
+    <button class="btn" type="submit">Register</button>
+  </form>
+  <span>Already registered <a href={%url 'login'%}>Signin now</a>
+ 
+{% endblock start %}

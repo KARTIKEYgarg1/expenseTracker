@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block start %}
+<h2>Login</h2>
+<form id="form" method="POST">
+    {% csrf_token %}
+    <div class="form-control">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="text" placeholder="Enter username..." required/>
+    </div>
+    <div class="form-control">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="text" placeholder="Enter password..." required/>
+    </div>
+    <button class="btn" type="submit">Login</button>
+  </form>
+ <span>New user <a href={%url 'signup'%}>Signup now</a></span>
+ {% if notLoggedIn %}
+ <span style="border:1px solid red;color:red;padding:10px;margin:5px">You are not logged in.....<br/>Login to continue</span>
+ {% endif %}
+ {% if invalidCredentials %}
+ <span style="border:1px solid red;color:red;padding:10px;margin:5px">Invalid Username/Password</span>
+ {% endif %}
+{% endblock start %}

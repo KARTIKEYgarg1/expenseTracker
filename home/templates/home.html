@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+{% block start %}
+{% if user.is_authenticated %}
+<div class="container">
+  <div style="display:flex;align-items:center;">
+    <h2 style="margin-right:10px">Expense Tracker</h2>
+    <a href={% url 'logout'%}>Logout</a>
+  </div>
+  <h4>Your Balance</h4>
+  <h1 id="balance">${{profile.balance}}</h1>
+
+  <div class="inc-exp-container">
+    <div>
+      <h4>Base Income</h4>
+      <p id="money-plus" class="money plus">+{{profile.income}}</p>
+    </div>
+    <div>
+      <h4>Expense</h4>
+      <p id="money-minus" class="money minus">-${{profile.expense}}</p>
+    </div>
+  </div>
+{% if expenses %}
+<h3>History</h3>
+<ul id="list" class="list">
+    {% for item in expenses%}
+    {% if item.expense_type == 'positive' %}
+    <li class="plus">
+      {{item.name}}<span>+${{item.amount}}</span>
+    </li>
+    {% else %}
+    <li class="minus">
+      {{item.name}} <span>-${{item.amount}}</span>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+</div>
+<h3>Add new transaction</h3>
+<form id="form" method="POST">
+  {% csrf_token %}
+  <div class="form-control">
+    <label for="text">Text</label>
+    <input type="text" name="text" id="text" placeholder="Enter text..." required/>
+  </div>
+  <div class="form-control">
+    <label for="amount"
+      >Amount <br />
+      (negative - expense, positive - income)</label
+    >
+    <input type="number" name="amount" id="amount" placeholder="Enter amount..." required />
+  </div>
+  <div class="form-control">
+    <label for="expensetype">Type</label>
+    <select name="expensetype" style="width:100%;padding:5px" required >
+      <option value="positive">Income</option>
+      <option value="negative">Expense</option>
+    </select>
+  </div>
+  <button class="btn" type="submit">Add transaction</button>
+</form>
+{% endif %}
+{% endblock start %}
